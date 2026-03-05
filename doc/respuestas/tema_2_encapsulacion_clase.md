@@ -271,27 +271,89 @@ Ventajas
 
 ## 18. ¿Es recomendable incluir métodos "setter" siempre y como convención?
 
-#### No
+No
 
 
 ## 19. ¿La clase `String` en Java es mutable o inmutable? ¿Qué ocurre al concatenar dos cadenas? ¿Qué debemos hacer si vamos a hacer una operación que implique concatenar muchas veces para construir paso a paso una cadena muy larga?
 
-#### String es inmutable
+String es inmutable, no hay metodos que permitan modificar el valor de la cadena
+
+`StringBuilder`
+: Usado para escribir `string` muy largos con `append`
+Clase mutable
 
 
 ## 20. En POO ¿Cómo se comparan objetos de una misma clase? ¿Por su contenido o por su identidad? ¿Qué es el método equals en Java? ¿Qué hace por defecto? ¿Cómo se deben comparar dos cadenas en Java? 
 
-### Respuesta
+Comparando Objetos
+: a) Por Identidad: mismo objeto en memoria
+`if(obj1 == obj2)`
+b) Por contenido: mismo estado (valor de sus atributos) 
+`if(obj1.equals.obj2)`
+
+---
+#### Ejemplo
+```java
+String s1 = new String ("hola");
+String s2 = new String ("hola");
+if(s1 == s2){ // False
+    ...
+}
+if(s1.equals.s2){ // True
+    ...
+}
+```
+Caso `==`
+: Distintos objetos != misma direccion de memoria
+
+Caso `equals`
+: Compara el contenido de los objetos, no su direccion
+
+---
+En términos prácticos, se usa más habitualmente el metodo `equals`
 
 
 ## 21. ¿Qué son las clases "wrapper" en un lenguaje de programación orientado a objetos? ¿Cómo se hace? ¿Es un proceso automático? ¿Qué ventajas tienen? ¿Todos los lenguajes orientados a objetos tienen tipos primitivos y necesitan wrappers? 
 
-### Respuesta
+`wrapper`
+: Ocurren en lenguajes con tipos primitivos (ej: Java)
+Otros lenguajes no tienen tipos primitivos (ej: Python)
+`int` --> `Integer` `float` --> `Float` `char` --> `Character`
+
+---
+Ventajas
+: Añadirle comportamiento
+Poder usarlos en contextos donde se necesitan objetos (`List <T>`)
+
+---
+Autoboxing/Unboxing
+: `Integer i=7; // Autoboxing`
+Integer i = new Integer(7);
+`int j = i; // Unboxing`
+int j = i.intValue();
 
 
 ## 22. ¿En POO qué es un **tipo de dato enumerado**? ¿En Java, un tipo de dato enumerado es una clase? ¿Qué ventajas tienen en términos de encapsulación los enumerados en Java?
 
-### Respuesta
+Enumerado
+: Tiene un numero determinado de valores posibles
+En java, un `enum` es una clase, cuyas instancias son finitas, conocidas de antemano y tienen un nombre cada una (valor del enumerado)
+
+```java
+public enum TipoIVA{
+    GENERAL(1.21), 
+    REDUCIDO(1.10);
+
+    private double factor;
+
+    public double aplicar(double cant){
+        return cant*this.factor;
+    }
+    private TipoIVA(double factor){
+        this.factor = factor;
+    }
+}
+```
 
 
 ## 23. Crea un tipo enumerado en Java que se llame `Mes`, con doce posibles instancias y que además proporcione métodos para obtener cuántos días tiene ese mes, el ordinal de ese mes en el año (1-12), empleando atributos privados y constructores del tipo enumerado.
