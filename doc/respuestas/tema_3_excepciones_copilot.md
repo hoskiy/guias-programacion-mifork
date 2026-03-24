@@ -16,8 +16,6 @@ Por favor, escribe en impersonal las respuestas.
 
 ## 1. Empecemos un tema sobre control de errores en lenguajes de programación, con algo básico. En C, donde no existen las excepciones, pongamos un ejemplo de una raíz que toma número flotante positivo. Queremos controlar el error si la función recibe un número negativo. El usuario debe ser informado pero desde fuera de la función `raiz` ¿Cómo indicamos ese error?. Enumera dos opciones diferentes de diseñar, poniendo un ejemplo de código de cada una.
 
-### Respuesta
-
 En C, donde no existen excepciones, el control de errores suele realizarse mediante el uso de valores de retorno especiales o variables externas. Una opción común es devolver un valor que indique error, por ejemplo, un número negativo o cero en funciones que normalmente devuelven solo valores positivos. El código que llama a la función debe comprobar este valor y actuar en consecuencia.
 
 ```c
@@ -96,7 +94,11 @@ En este ejemplo, el método `raiz` lanza una excepción si el argumento es negat
 
 ### Respuesta
 
-"Lanzar" una excepción significa interrumpir el flujo normal de ejecución de un método cuando ocurre una condición anómala, creando un objeto excepción y transfiriendo el control a la estructura de manejo de errores más cercana. "Controlar" o "capturar" una excepción implica interceptar esa excepción mediante un bloque `catch` para gestionar el error de forma adecuada. "Propagar" una excepción es dejar que la excepción siga subiendo por la pila de llamadas hasta que algún método la capture.
+"Lanzar"
+: Significa interrumpir el flujo normal de ejecución de un método cuando ocurre una condición anómala, creando un objeto excepción y transfiriendo el control a la estructura de manejo de errores más cercana. 
+
+"Controlar" o "capturar" 
+: Implica interceptar esa excepción mediante un bloque `catch` para gestionar el error de forma adecuada. "Propagar" una excepción es dejar que la excepción siga subiendo por la pila de llamadas hasta que algún método la capture.
 
 Cuando una excepción se propaga, cada función en la pila de llamadas se va "desapilando" hasta encontrar un manejador adecuado. Las funciones que no capturan la excepción no se reanudan después; su ejecución se interrumpe y se liberan sus recursos locales. Por ejemplo, en el caso de la raíz cuadrada en Java, si `Calculadora.raiz(-9)` lanza una excepción y no se captura en el método que la llamó, la excepción seguirá subiendo hasta que algún bloque `catch` la capture o el programa termine.
 
@@ -190,7 +192,11 @@ Esto garantiza que el código de limpieza se ejecute pase lo que pase, lo que es
 
 ### Respuesta
 
-En Java, las excepciones "controladas" (checked) son aquellas que el compilador obliga a declarar o capturar, y suelen derivar de `Exception` pero no de `RuntimeException`. Las "no controladas" (unchecked) son subclases de `RuntimeException` y no requieren declaración ni captura obligatoria.
+Excepciones "controladas" (checked)
+: Son aquellas que el compilador obliga a declarar o capturar, y suelen derivar de `Exception` pero no de `RuntimeException`. 
+
+Excepciones "no controladas" (unchecked)
+: Son subclases de `RuntimeException` y no requieren declaración ni captura obligatoria.
 
 `RuntimeException` es la clase base de las excepciones no controladas, que suelen indicar errores de programación, como referencias nulas o índices fuera de rango.
 
@@ -271,7 +277,7 @@ No todos los lenguajes distinguen entre ambos tipos; en muchos solo existen exce
 
 Tiene sentido lanzar excepciones dentro de un `catch` cuando se detecta que el error no puede ser resuelto localmente y debe ser gestionado por un nivel superior. También se puede relanzar la misma excepción capturada usando `throw;` en otros lenguajes o `throw e;` en Java.
 
-Ejemplo de lanzar una nueva excepción:
+#### Ejemplo de lanzar una nueva excepción:
 ```java
 try {
 	// ...
@@ -280,7 +286,7 @@ try {
 }
 ```
 
-Ejemplo de relanzar la misma excepción:
+#### Ejemplo de relanzar la misma excepción:
 ```java
 try {
 	// ...

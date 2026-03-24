@@ -150,7 +150,7 @@ public void setX(double x){ // Metodo setter
 
 ## 10. Cuando nos referimos a que la ocultación de información mejora la "seguridad" del programa, ¿nos referimos a que no pueda ser "hackeado"?
 
-#### No, esto no es ciberseguridad, sino que es facilitar una programacion con menos 'bugs'
+No, esto no es ciberseguridad, sino que es facilitar una programacion con menos 'bugs'
 
 
 ## 11. ¿Qué diferencia hay entre **miembro de instancia** y **miembro de clase**? ¿Los miembros de clase también se pueden ocultar?
