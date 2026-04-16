@@ -14,7 +14,6 @@ Por favor, escribe en impersonal las respuestas.
 -->
 ## 1. En orientación a objetos, ¿qué es la **herencia** y su relación con "A es-un B"?. Explica las dos implicaciones principales: (1) **compatibilidad de tipos** y (2) **herencia de estado y comportamiento**. Pon un ejemplo en Java muy sencillo, donde un `Soldado` tiene un `nombre` (privado) y un método `saludar()` que muestra su nombre. Hay dos subtipos: un `Artillero`, que es capaz de disparar cohetes y un `Zapador` que pone minas, ambos heredan el atributo nombre y la capacidad de saludar. Además, y de forma específica, el artillero tiene un número de cohetes y el zapador un número de minas, accesibles mediante "getters" específicos. Respecto a la compatibilidad de tipos, aprovechémosla: crea un array de `Soldado`, mete varios de distinto tipo (son todos compatibles con `Soldado`). Recórrela y que todos te saluden.
 
-### Respuesta
 
 **Herencia** en orientación a objetos es un mecanismo que permite definir una clase (subclase) a partir de otra (superclase), heredando sus atributos y métodos. La relación "A es-un B" significa que una instancia de la subclase puede ser tratada como una instancia de la superclase, lo que se conoce como **compatibilidad de tipos**.
 
@@ -29,6 +28,7 @@ Por favor, escribe en impersonal las respuestas.
 
 #### Ejemplo en Java
 
+>*Soldado*
 ```java
 class Soldado {
 	private String nombre;
@@ -36,10 +36,13 @@ class Soldado {
 		this.nombre = nombre;
 	}
 	public void saludar() {
-		System.out.println("Hola, soy " + nombre);
+		System.out.println("Le saluda el soldado " + nombre);
 	}
 }
-
+```
+>*Soldado*
+Tipo: *Artillero*
+```java
 class Artillero extends Soldado {
 	private int cohetes;
 	public Artillero(String nombre, int cohetes) {
@@ -48,7 +51,10 @@ class Artillero extends Soldado {
 	}
 	public int getCohetes() { return cohetes; }
 }
-
+```
+>*Soldado*
+Tipo: *Zapador*
+```java
 class Zapador extends Soldado {
 	private int minas;
 	public Zapador(String nombre, int minas) {
@@ -57,15 +63,21 @@ class Zapador extends Soldado {
 	}
 	public int getMinas() { return minas; }
 }
-
-// Uso de compatibilidad de tipos
-Soldado[] escuadron = {
-	new Artillero("Juan", 5),
-	new Zapador("Luis", 3),
-	new Artillero("Ana", 2)
-};
-for (Soldado s : escuadron) {
-	s.saludar();
+```
+---
+```java
+class pruebaHerencia {
+	public static void main (String[] args){
+		// Uso de compatibilidad de tipos
+		Soldado[] escuadron = {
+			new Artillero("Juan", 5),
+			new Zapador("Luis", 3),
+			new Artillero("Ana", 2)
+		};
+		for (Soldado s : escuadron) {
+			s.saludar();
+		}
+	}
 }
 ```
 
@@ -74,7 +86,6 @@ En este ejemplo, todos los objetos pueden saludar, aunque sean de tipos concreto
 
 ## 2. Al crear los soldados concretos, ¿cuántos constructores se ejecutan y en qué orden? ¿Qué significa `super` dentro de un constructor? Si la clase base no tiene visible el constructor sin parámetros, ¿debo llamar a `super` siempre? 
 
-### Respuesta
 
 Al crear un objeto de una subclase, se ejecutan **dos constructores**: primero el de la superclase y luego el de la subclase. El orden es siempre de arriba hacia abajo en la jerarquía de herencia.
 
@@ -103,7 +114,6 @@ En resumen:
 
 ## 3. Respecto a los objetos de subclases en memoria, los atributos privados de la superclase, ¿forman parte de una instancia de la subclase en memoria? En caso afirmativo ¿implica que se puedan usar desde el código de la subclase? Explícalo con el ejemplo de `Soldado` y alguna de sus subclases.
 
-### Respuesta
 
 Los atributos privados de la superclase **sí forman parte** de la instancia de la subclase en memoria. Sin embargo, **no pueden ser accedidos directamente** desde el código de la subclase debido a las reglas de encapsulación.
 
@@ -130,17 +140,19 @@ Aunque el atributo `nombre` existe en cada objeto `Artillero`, no es accesible d
 
 ## 4. ¿Qué implica en términos de **extensibilidad** de código el hecho de que sean compatibles a nivel de tipos? Ilustra esto añadiendo un nuevo tipo de `Soldado` y demostrando que el código para pedir el saludo a todos los soldados no se modifica.
 
-### Respuesta
 
 La compatibilidad de tipos permite **extender el sistema** añadiendo nuevas subclases sin modificar el código que opera sobre la superclase. Esto facilita la extensibilidad y el mantenimiento del software.
 
 **Ejemplo:**
-
+> *Soldado*
+Tipo: *Piloto*
 ```java
 class Piloto extends Soldado {
 	public Piloto(String nombre) { super(nombre); }
 }
-
+```
+---
+```java
 // El código que recorre el array de Soldado no cambia:
 Soldado[] escuadron = {
 	new Artillero("Juan", 5),
@@ -159,7 +171,6 @@ for (Soldado s : escuadron) {
 
 ## 5. En Java, cuando trabajo con referencias y herencia. ¿Puedo tener una referencia del supertipo que apunte a objetos reales de un subtipo? ¿Puedo invocar con la referencia del supertipo a métodos públicos del subtipo? ¿En qué consiste el **"upcasting"** y el **"downcasting"**? ¿Qué es el `instanceof`? Pon un ejemplo de recorrido de un array de `Soldado`, comprobando que, si el objeto real es un `Artillero`, solicite el número de cohetes que tiene y los imprima.
 
-### Respuesta
 
 En Java, **sí se puede** tener una referencia del supertipo (`Soldado`) que apunte a un objeto real de un subtipo (`Artillero` o `Zapador`). Esto se llama **upcasting** y ocurre de forma implícita.
 
@@ -174,21 +185,26 @@ En Java, **sí se puede** tener una referencia del supertipo (`Soldado`) que apu
 #### Ejemplo
 
 ```java
+Soldado s = new Artillero("Juan", 10); // Upcasting (automático)
 for (Soldado s : escuadron) {
 	s.saludar();
 	if (s instanceof Artillero) {
 		Artillero a = (Artillero) s; // Downcasting
 		System.out.println("Cohetes: " + a.getCohetes());
 	}
+	// Otra forma (moderno)
+	if(s instanceof Artillero a) {
+		System.out.println("Cohetes: " + a.getCochetes())
+	}
 }
 ```
+>**Nota:** Solo muestra la munición en el caso de los artilleros, si no lo es, solo saluda
 
 En este ejemplo, se recorre un array de `Soldado` y, usando `instanceof`, se identifica si el objeto es un `Artillero` para acceder a su método específico.
 
 
 ## 6. Respecto a la ocultación de información y herencia, ¿qué significa acceso **"protegido"** de métodos y/o atributos? ¿Cómo se implementa en Java? Pon un ejemplo de uso de en la clase `Soldado` para que su nombre sea protegido y pueda usarse en el método de poner bombas del `Zapador`.
 
-### Respuesta
 
 El acceso **protegido** (`protected`) permite que un atributo o método sea accesible desde la propia clase, sus subclases y otras clases del mismo paquete, pero no desde fuera de ellos.
 
@@ -199,9 +215,12 @@ class Soldado {
 	protected String nombre;
 	// ...
 }
+```
+```java
 class Zapador extends Soldado {
+	// ...
 	public void ponerMina() {
-		System.out.println(nombre + " ha puesto una mina"); // Acceso permitido
+		System.out.println("Zapador " + nombre + " ha puesto una mina"); // Acceso permitido
 	}
 }
 ```

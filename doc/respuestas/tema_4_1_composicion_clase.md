@@ -282,8 +282,26 @@ public class Departamento{
 
 ## 10. Al igual que ocurre con las excepciones en Java, que pueden encerrar causas (que son excepciones), de forma recursiva, suponen un tipo especial de composiciones, denominadas composiciones recursivas. Pon un ejemplo en Java de una `Persona`, que sea inmutable, y que tiene una madre, que es otra `Persona`. Haz un main con un ejemplo de uso con una familia de personas, desde el nieto hasta la abuela. Enumera algún otro ejemplo clásico de composiciones recursivas.
 
-### Respuesta
+```java
+class Persona{
+    private Persona madre;
+    public Persona(Persona madre){
+        this.madre = madre;
+    }
+    public Persona(){
+        this.madre = null;
+    }
+
+    public static void main (String args[]){
+        Persona abuela = new Persona();
+        Persona hija = new Persona(abuela);
+        Persona nieto = new Persona(nieto);
+    }
+}
+```
 
 ## 11. ¿Qué son las relaciones de composición "bidireccionales"? ¿Qué habría que hacer para implementar este tipo de relación en el ejemplo de `Profesor` y `Departamento`?
 
-### Respuesta
+Las bidireccionales exigen programar cuidadosamente para mantener la consistencia
+
+* Ejemplo: Si añado un profesor al departamento debo actualizar la referancia al `Departamento` desde `Profesor`
