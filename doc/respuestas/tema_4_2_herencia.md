@@ -230,7 +230,6 @@ En este ejemplo, el atributo `nombre` es protegido y puede ser usado directament
 
 ## 7. En los lenguajes orientados a objetos ¿hay una **clase base** para todos los objetos? ¿Ocurre en todos los lenguajes? ¿Qué ocurre en Java?
 
-### Respuesta
 
 En muchos lenguajes orientados a objetos existe una **clase base común** para todos los objetos. En Java, **todas las clases heredan implícitamente de la clase `Object`**, salvo que se indique explícitamente otra superclase.
 
@@ -243,11 +242,23 @@ En muchos lenguajes orientados a objetos existe una **clase base común** para t
 
 ## 8. ¿Qué es la **"herencia múltiple"**? ¿Existe en Java herencia múltiple?
 
-### Respuesta
 
 La **herencia múltiple** es la capacidad de una clase de heredar de más de una superclase directa.
 
 - En Java, **no existe herencia múltiple de clases** para evitar ambigüedades y problemas de diseño.
+>**Ejemplo de ambigüedad:** Herencia de diamante
+```mermaid
+classDiagram
+class 1
+class 2
+class 3
+class 4
+
+1 <|-- 2
+1 <|-- 3
+2 <|-- 4
+3 <|-- 4
+```
 - Sin embargo, Java permite herencia múltiple de interfaces, lo que significa que una clase puede implementar varias interfaces.
 
 **Ejemplo:**
@@ -264,7 +275,6 @@ class Pato implements Volador, Nadador {
 
 ## 9. Las excepciones en los lenguajes orientados a objetos son objetos. Por tanto, se pueden crear excepciones personalizadas. Pon un ejemplo en Java de una excepción personalizada (`UsuarioNoEncontradoException`), que sea *no controlada* y que además este compuesto con un `Usuario`, para saber qué `Usuario` dio el problema. Permite además que se pueda incluir la causa, es decir, sobrecarga el constructor para tener una versión que permita añadir la causa subyacente. 
 
-### Respuesta
 
 En Java, las excepciones personalizadas se crean extendiendo la clase `Exception` (para excepciones comprobadas) o `RuntimeException` (para no comprobadas/no controladas).
 
@@ -276,7 +286,8 @@ class Usuario {
 	public Usuario(String nombre) { this.nombre = nombre; }
 	public String getNombre() { return nombre; }
 }
-
+```
+```java
 class UsuarioNoEncontradoException extends RuntimeException {
 	private Usuario usuario;
 	public UsuarioNoEncontradoException(Usuario usuario) {
@@ -296,7 +307,6 @@ Esta excepción es *no controlada* porque hereda de `RuntimeException` y almacen
 
 ## 10. Herencia vs. Composición. Se dice que no se debe emplear herencia simplemente por reutilizar código, es decir, que si quiero reutilizar código simplemente, no debo pensar en herencia como primera opción ¿por qué?
 
-### Respuesta
 
 La herencia implica una relación fuerte de tipo "es-un", lo que puede restringir la flexibilidad del diseño. Si solo se busca reutilizar código, la herencia puede introducir dependencias innecesarias y acoplamiento entre clases.
 
@@ -306,10 +316,12 @@ La herencia implica una relación fuerte de tipo "es-un", lo que puede restringi
 - Cambios en la superclase pueden afectar a todas las subclases, dificultando el mantenimiento.
 - La composición permite reutilizar código sin imponer una relación de tipo.
 
+>**Conclusión:** 
+No usar herencia sólo para reutilizar código. Debe usarse cuándo se necesita la compatibilidad de tipos
+
 
 ## 11. Herencia vs. Composición. Se dice que se debe *"favorecer la composición frente a la herencia"*, ¿por qué?
 
-### Respuesta
 
 Se recomienda **favorecer la composición** porque proporciona mayor flexibilidad y menor acoplamiento entre clases. La composición permite construir objetos complejos a partir de otros objetos, delegando responsabilidades en lugar de heredar comportamientos.
 
@@ -322,7 +334,6 @@ Se recomienda **favorecer la composición** porque proporciona mayor flexibilida
 
 ## 12. Herencia vs. Composición. Se dice que la *"herencia rompe la encapsulación"*, ¿a qué se refiere esto?
 
-### Respuesta
 
 La herencia puede romper la encapsulación porque las subclases pueden acceder (directa o indirectamente) a detalles internos de la superclase, especialmente si los atributos o métodos son `protected` o `public`.
 
