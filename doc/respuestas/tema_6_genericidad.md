@@ -317,7 +317,6 @@ public class Punto3D implements Punto<Punto3D> {
 
 ## 12. Dado que `String` es subtipo de `Object`, ¿significa eso que `List<String>` es subtipo de `List<Object>`? ¿Y que `String[]` es subtipo de `Object[]`? Razona por qué la respuesta es diferente en cada caso y qué problema en tiempo de ejecución puede aparecer con los arrays. A partir de estos ejemplos, define qué significa que un tipo genérico sea **covariante**, **contravariante** o **invariante** respecto a su parámetro de tipo.
 
-### Respuesta
 
 **Arrays:**
 En Java, `String[]` **sí** es subtipo de `Object[]` (covarianza de arrays). Esto permite hacer:
@@ -339,7 +338,6 @@ arr[0] = 42; // Error en tiempo de ejecución: ArrayStoreException
 
 ## 13. Java permite recuperar covarianza y contravarianza en tipos genéricos de forma controlada mediante **wildcards**. ¿Qué es un wildcard (`?`)? Muestra la diferencia entre `List<? extends T>` y `List<? super T>`, indicando en qué casos se usa cada uno. Pon dos ejemplos: (i) un método que reciba una lista de números y calcule su suma, usando `? extends`; (ii) un método que reciba una lista y le añada varios números enteros, usando `? super`.
 
-### Respuesta
 
 **Wildcard (`?`):**
 Es un comodín que representa un tipo desconocido. Permite especificar relaciones de subtipado en genéricos.
