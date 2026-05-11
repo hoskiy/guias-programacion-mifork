@@ -262,19 +262,21 @@ System.out.println(redondear.transformar(3.7)); // 4
 Java proporciona varias **interfaces funcionales predefinidas** en el paquete `java.util.function`:
 
 - `Function<T, R>`: transforma un valor de tipo T en uno de tipo R.
+`R apply(E e)`
 - `Consumer<T>`: recibe un valor de tipo T y no devuelve nada.
+`void accept(T t)`
 - `Supplier<T>`: no recibe parámetros y devuelve un valor de tipo T.
+`T get()`
 - `Predicate<T>`: recibe un valor de tipo T y devuelve un booleano.
+`boolean test(T t)`
 - `UnaryOperator<T>`: como Function, pero entrada y salida son del mismo tipo.
 - `BinaryOperator<T>`: como Function, pero con dos entradas del mismo tipo y una salida del mismo tipo.
 >**Nota de Clase:** 
 `BiFunction<E1, E2, S>`: recibe 2 parametros de tipo E1, E2 y devulve un valor de tipo S
-`Runnable`: run():void
+`Runnable`: `void run()` no recibe parametros
 
 ## 14. Vamos a ver ejemplos expresivos de funcional en Java. Estudiemos el `List.forEach`, como versión funcional del bucle `for`. Emplea el `forEach` para recorrer una lista de `Integer` y que muestre un mensaje si el entero es positivo.
 
-
-### Respuesta
 
 El método `forEach` permite aplicar una acción a cada elemento de una lista de forma funcional.
 
@@ -295,8 +297,6 @@ Esto reemplaza el clásico bucle `for` por una expresión más declarativa.
 ## 15. Repasando el tema de genericidad, fíjate en la firma de `forEach`, ¿por qué se usa `Consumer<? super T>` y no `Consumer<T>`? Explica qué significa **PECS**, y explícalo para el caso de mejorar el ejemplo del método `transformar` la hora de definir el tipo de la función transformadora.
 
 
-### Respuesta
-
 La firma `Consumer<? super T>` permite mayor flexibilidad, ya que acepta consumidores de T o de cualquier supertipo de T. Esto sigue el principio **PECS**:
 
 > **PECS**: *Producer Extends, Consumer Super*
@@ -309,8 +309,6 @@ En el caso de `transformar`, si se quisiera aceptar funciones que transforman cu
 
 ## 16. Referencias a métodos. Podemos obtener una referencia a métodos de objetos o clases. Pon un ejemplo en JavaScript y en Java, de una clase `Persona` con un método `saludar`. En el código principal, crea una `Persona` con un nombre, y obtén una referencia a su método `saludar` en una variable local. Invoca `saludar` con esa referencia a su método `saludar`.
 
-
-### Respuesta
 
 **JavaScript:**
 
@@ -340,12 +338,23 @@ Persona p = new Persona("Ana");
 Supplier<String> refSaludar = p::saludar;
 System.out.println(refSaludar.get()); // "Hola, soy Ana"
 ```
+>**Notas de Clase:**
+Referencia a metodo estatico -> `Clase::metodoEstatico`
+*Ejemplo: `Persona::numeroPersonas -> Supplier<Integer>`
+Referencia a constructor -> `Clase::new`
+*Ejemplo: `Persona::new -> Function<String, Persona>`
+
+>**Referencia a metodo de instancia:**
+a)Sin instancia conocida -> `Clase::metodo`
+*Ejemplo: `Persona::getNumViajes` 
+[Bifunction<Persona, Ciudad, Integer>]
+b)Con instancia conocida -> `instancia::metodo`
+*Ejemplo: `pepe::getNumViajes`
+[Function<Ciudad, Integer>]
 
 
 ## 17. ¿Qué tipos de referencias a método se pueden hacer en Java? Pon un ejemplo de referencia a método estático, a constructor, a método de instancia de una instancia concreta y a método de instancia sobre cualquier instancia.
 
-
-### Respuesta
 
 En Java existen varios tipos de referencias a métodos:
 
@@ -370,8 +379,6 @@ En Java existen varios tipos de referencias a métodos:
 
 ## 18. Otro ejemplo expresivo. Ordena una lista de `Persona`, cada persona tiene un nombre y una edad (de tipo entero). Ordena la lista de `Persona` con `Collections.sort`, pasándole como comparador una expresión lambda que compare la edad de ambas personas y si tienen la misma edad, se ordene por orden alfabético del nombre. Crea dos versiones: Una con la función de comparación hecha manualmente, y otra empleando `Comparator`.
 
-
-### Respuesta
 
 **Definición de la clase Persona:**
 
